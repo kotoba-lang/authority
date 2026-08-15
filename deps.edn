@@ -1,0 +1,9 @@
+{:paths ["src"]
+ ;; Zero third-party runtime deps, on purpose. This library is meant to be
+ ;; linked into a Cloudflare Worker, a JVM admission path and a test harness
+ ;; without any of them inheriting a transitive dependency to audit.
+ :deps {}
+ :aliases {:test {:extra-paths ["test"]
+                  :extra-deps {io.github.cognitect-labs/test-runner
+                               {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+                  :main-opts ["-m" "cognitect.test-runner"]}}}
