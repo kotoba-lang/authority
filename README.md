@@ -142,7 +142,7 @@ No allocation on the deny path.
 
 ```bash
 clojure -M:test                       # 37 tests, 122 assertions (JVM)
-nbb --classpath src test/cljs_smoke.cljs   # the same laws under ClojureScript
+nbb --classpath src test/cljs_smoke.cljk   # the same laws under ClojureScript
 ```
 
 The order laws (reflexivity, antisymmetry, transitivity, greatest-lower-bound)
