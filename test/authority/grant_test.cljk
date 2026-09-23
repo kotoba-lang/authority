@@ -1,5 +1,5 @@
 (ns authority.grant-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [authority.grant :as g]))
 
 (def t1 "2026-08-01T00:00:00Z")
