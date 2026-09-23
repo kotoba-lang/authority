@@ -1,5 +1,5 @@
 (ns authority.chain-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [authority.chain :as c]
             [authority.grant :as g]
             [authority.scope :as s]))

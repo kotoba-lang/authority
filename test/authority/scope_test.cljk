@@ -6,7 +6,7 @@
   has: exact, wildcard tail, nested wildcard, sibling, and cross-scheme. A
   property that holds here holds because it was checked, not because a
   generator happened not to find the counterexample."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [authority.scope :as s]))
 
 (def universe
