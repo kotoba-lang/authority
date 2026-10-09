@@ -163,6 +163,23 @@ wasm32-browser --fuel 1000000`, then each `test-*` export in a fresh instance
 (8/8). `kotoba -M test` stops on the js target (`unsupported KIR node`) and the
 native targets do not yet qualify typed string sets.
 
+### `authority.delegation`
+
+[`src/authority/delegation.kotoba`](src/authority/delegation.kotoba) is
+`authority.chain/authorize` for a guest, on top of `authority.lattice`. It
+answers the same reason in the same order (1 granted … 6 out-of-scope, plus 7
+for a malformed chain). A chain is three typed maps keyed 0..n-1 — scope sets,
+holders, expiries — because a list of records is outside the value profile and
+`[:list T]` has no count. It never builds a meet of sets: scopes form a tree,
+so the meet of every link covers a request exactly when every link covers it.
+
+```bash
+kbb --backend sci --classpath "src:$(kbb -Spath)" scripts/delegation-oracle-cases.cljk
+```
+
+asks the oracle the same 22 questions (all agree, 2026-10-09). On Wasm the five
+`test-*` pass with `--fuel 5000000`.
+
 ## Test
 
 ```bash
