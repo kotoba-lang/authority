@@ -138,6 +138,31 @@ normalisation, and normalisation keeps grants as antichains — a handful of
 scopes in practice — so a delegation chain folds in time linear in its length.
 No allocation on the deny path.
 
+## Pure Kotoba: `authority.lattice`
+
+[`src/authority/lattice.kotoba`](src/authority/lattice.kotoba) is the same
+lattice for a Kotoba guest (root ADR-2610082200 §16: everything below the
+kotoba app runs in pure Kotoba). `authority.scope` stays as the general oracle,
+the way kotoba-lang/text keeps `text.cljk` beside `bounded_text.kotoba`.
+
+It works on the resource string itself (`kotoba://graph/g1`), because a scope
+vector mixes string segments with the keyword `:*` and a Kotoba vector holds
+one type; `parse` and `render` are inverses on every valid scope, so nothing is
+lost. `valid?`, `covers?`, `meet` (`""` when incomparable) and `covered?` keep
+the oracle's laws. It needs only `kotoba.lang.bounded-text`, so `deps.edn` pins
+kotoba-lang/text at a commit that has it.
+
+```bash
+kbb --backend sci --classpath "src:$(kbb -Spath)" scripts/lattice-oracle-cases.cljk
+```
+
+asks `authority.scope` every question the Kotoba tests assert (37 cases on
+2026-10-09, all agree). The tests themselves run on Wasm:
+`kotoba -M compile src/authority/lattice.kotoba --source-path src ... --target
+wasm32-browser --fuel 1000000`, then each `test-*` export in a fresh instance
+(8/8). `kotoba -M test` stops on the js target (`unsupported KIR node`) and the
+native targets do not yet qualify typed string sets.
+
 ## Test
 
 ```bash
